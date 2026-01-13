@@ -44,8 +44,8 @@ npm install express axios cors body-parser crypto
 ### Set Environment Variables
 Create a `.env` file in the root directory:
 ```env
-PAYSTACK_SECRET_KEY=sk_live_ec66162f517e07fb5e2322ec5e5281e2fe3ab74b
-PAYSTACK_PUBLIC_KEY=pk_live_2ed6a5c46ebab203998efd1f5d9c22d2dcc05f71
+PAYSTACK_SECRET_KEY=your_paystack_secret_key_here
+PAYSTACK_PUBLIC_KEY=your_paystack_public_key_here
 PORT=3001
 NODE_ENV=production
 ```

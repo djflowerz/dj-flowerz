@@ -23,8 +23,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Keys from configuration
-const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY || 'sk_live_ec66162f517e07fb5e2322ec5e5281e2fe3ab74b';
-const PAYSTACK_PUBLIC_KEY = process.env.PAYSTACK_PUBLIC_KEY || 'pk_live_2ed6a5c46ebab203998efd1f5d9c22d2dcc05f71';
+const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
+const PAYSTACK_PUBLIC_KEY = process.env.PAYSTACK_PUBLIC_KEY;
 const BASE_URL = 'https://api.paystack.co';
 
 // Helper function for API calls

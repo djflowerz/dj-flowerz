@@ -11,10 +11,18 @@ export const TELEGRAM_BOT_TOKEN = '8365916391:AAEwo4gilymOwkb_OaF2kD39OhyKVvnSGF
 // --- CLIENT INITIALIZATION ---
 import { createClient } from '@insforge/sdk';
 
-export const client = createClient(PROJECT_ID, {
+// @ts-ignore
+export const client = createClient({
     baseUrl: API_BASE_URL,
-    apiKey: PROJECT_ID
-});
+    projectId: PROJECT_ID,
+    apiKey: PROJECT_ID,
+    auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        storageKey: 'djflowerz-auth-token',
+        flowType: 'pkce'
+    }
+} as any);
 
 // --- AUTH STATE MANAGEMENT ---
 export const setAuthToken = (token: string) => {
@@ -128,34 +136,18 @@ const handleSDK = async <T>(promise: any, fallback: T | null = null): Promise<T>
 
 export const db = {
     // User Data
-    async getMe(): Promise<User> {
-        // SDK update: use getSession() via cast to bypass strict typing if definitions are outdated
-        // As per 2026 SDK update instructions
-        const { data } = await (client.auth as any).getSession();
-        const user = data?.session?.user || data?.user;
-        if (!user) throw new Error('Not authenticated');
-
-        // Fetch extended profile if needed
-        let profile = {};
+    async getUserProfile(userId: string) {
         try {
-            const { data: profileData } = await client.database.from('users').select('*').eq('id', user.id).single();
-            if (profileData) profile = profileData;
+            const { data } = await client.database.from('users').select('*, createdAt:created_at').eq('id', userId).single();
+            return data;
         } catch (e) {
-            // User might be new and not have a row yet
+            return null;
         }
+    },
 
-        return {
-            id: user.id,
-            email: user.email || '',
-            name: user.name || '',
-            // @ts-ignore - checking prefs/metadata from the user object if available
-            role: (user as any).prefs?.role || 'USER',
-            // @ts-ignore
-            avatarUrl: (user as any).prefs?.avatarUrl,
-            // @ts-ignore
-            subscription: (user as any).prefs?.subscription,
-            ...profile // Merge with database profile
-        } as unknown as User;
+    async getMe(): Promise<User> {
+        // Deprecated: legacy auth method
+        throw new Error("Use getUserProfile with ID from useUser() hook");
     },
 
     async updateProfile(userId: string, updates: { name?: string, phone?: string, avatarUrl?: string }) {
@@ -214,7 +206,7 @@ export const db = {
 
     // Mixtapes
     async getMixtapes(): Promise<Mixtape[]> {
-        return handleSDK(client.database.from('mixtapes').select('*').order('createdAt', { ascending: false }), []);
+        return handleSDK(client.database.from('mixtapes').select('*, createdAt:created_at').order('created_at', { ascending: false }), []);
     },
     async saveMixtape(mixtape: Mixtape) {
         if (mixtape.id) {
@@ -227,7 +219,7 @@ export const db = {
 
     // Music Pool
     async getPoolTracks(): Promise<MusicPoolTrack[]> {
-        return handleSDK(client.database.from('pool_tracks').select('*').order('createdAt', { ascending: false }), []);
+        return handleSDK(client.database.from('pool_tracks').select('*, createdAt:created_at').order('created_at', { ascending: false }), []);
     },
     async savePoolTrack(track: MusicPoolTrack) {
         if (track.id) {
@@ -240,7 +232,7 @@ export const db = {
 
     // Products
     async getProducts(): Promise<Product[]> {
-        return handleSDK(client.database.from('products').select('*').order('createdAt', { ascending: false }), []);
+        return handleSDK(client.database.from('products').select('*, createdAt:created_at').order('created_at', { ascending: false }), []);
     },
     async saveProduct(product: Product) {
         if (product.id) {
@@ -263,7 +255,7 @@ export const db = {
         return client.database.from('orders').insert(orderData);
     },
     async getOrders(): Promise<Order[]> {
-        return handleSDK(client.database.from('orders').select('*').order('createdAt', { ascending: false }), []);
+        return handleSDK(client.database.from('orders').select('*, createdAt:created_at').order('created_at', { ascending: false }), []);
     },
     async updateOrderStatus(reference: string, status: string) {
         return client.database.from('orders').update({ status }).eq('reference', reference);
@@ -326,11 +318,11 @@ export const db = {
 
     // Contact & Bookings
     async sendContactMessage(msg: ContactMessage) { return client.database.from('messages').insert(msg); },
-    async getContactMessages(): Promise<ContactMessage[]> { return handleSDK(client.database.from('messages').select('*').order('createdAt', { ascending: false }), []); },
+    async getContactMessages(): Promise<ContactMessage[]> { return handleSDK(client.database.from('messages').select('*, createdAt:created_at').order('created_at', { ascending: false }), []); },
     async markMessageRead(id: string) { return client.database.from('messages').update({ read: true }).eq('id', id); },
 
     async sendBookingRequest(req: BookingRequest) { return client.database.from('bookings').insert(req); },
-    async getBookingRequests(): Promise<BookingRequest[]> { return handleSDK(client.database.from('bookings').select('*').order('createdAt', { ascending: false }), []); },
+    async getBookingRequests(): Promise<BookingRequest[]> { return handleSDK(client.database.from('bookings').select('*, createdAt:created_at').order('created_at', { ascending: false }), []); },
     async updateBookingStatus(id: string, status: BookingRequest['status']) {
         return client.database.from('bookings').update({ status }).eq('id', id);
     }

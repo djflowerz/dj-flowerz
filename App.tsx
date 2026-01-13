@@ -33,34 +33,52 @@ const AuthSync = ({ children }: React.PropsWithChildren<{}>) => {
     const [loading, setLoading] = useState(true);
 
     const refreshUser = async () => {
-        if (isSignedIn && authUser) {
-            try {
-                // Get JWT token and set it for the API client
-                if (getToken) {
-                    const token = await getToken();
-                    if (token) setAuthToken(token);
-                }
+        if (!isLoaded) return;
 
-                // Fetch enriched profile (with subscription/roles) from DB
-                const profile = await db.getMe();
-                setAppUser(profile);
-            } catch (e) {
-                console.error("Failed to fetch user profile", e);
-                // Fallback to basic auth info if DB fetch fails
-                setAppUser({
-                    id: authUser.id,
-                    email: authUser.email || '',
-                    name: (authUser as any).name || 'User',
-                    avatarUrl: (authUser as any).avatarUrl,
-                    role: 'USER' as any,
-                    downloads: []
-                });
-            }
-        } else {
+        if (!authUser) {
             setAppUser(null);
             setAuthToken('');
+            setLoading(false);
+            return;
         }
-        setLoading(false);
+
+        try {
+            // User is authenticated via SDK
+            // Fetch extra profile data using the ID from the hook
+            const profile = await db.getUserProfile(authUser.id);
+
+            const email = (authUser as any).primaryEmailAddress?.emailAddress || (authUser as any).email || '';
+            const name = (authUser as any).fullName || (authUser as any).firstName || 'User';
+
+            const mergedUser = {
+                id: authUser.id,
+                email: email,
+                name: name,
+                role: 'USER', // Default
+                downloads: [],
+                // Merge DB profile
+                ...profile
+            };
+
+            setAppUser(mergedUser as User);
+
+            if (getToken) {
+                const token = await getToken();
+                if (token) setAuthToken(token);
+            }
+        } catch (e) {
+            console.error("Profile sync failed:", e);
+            // Fallback to basic auth user info
+            setAppUser({
+                id: authUser.id,
+                email: (authUser as any).primaryEmailAddress?.emailAddress || '',
+                name: (authUser as any).fullName || 'User',
+                role: 'USER',
+                downloads: []
+            } as User);
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {

@@ -1,87 +1,97 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DJ FLOWERZ | Premium DJ Platform</title>
-    <meta name="description" content="Official platform of DJ Flowerz. Listen to mixtapes, join the music pool, and shop digital tools." />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              flowerz: {
-                bg: '#0B0B0F',
-                card: '#15151A',
-                purple: '#7B5CFF',
-                blue: '#00E5FF',
-                dark: '#050507'
-              }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ FLOWERZ | Premium DJ Platform</title>
+  <meta name="description"
+    content="Official platform of DJ Flowerz. Listen to mixtapes, join the music pool, and shop digital tools." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            flowerz: {
+              bg: '#0B0B0F',
+              card: '#15151A',
+              purple: '#7B5CFF',
+              blue: '#00E5FF',
+              dark: '#050507'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Poppins', 'sans-serif'],
+          },
+          backgroundImage: {
+            'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #7B5CFF 0deg, #00E5FF 180deg, #7B5CFF 360deg)',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'spin-slow': 'spin 8s linear infinite',
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
             },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              display: ['Poppins', 'sans-serif'],
-            },
-            backgroundImage: {
-              'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #7B5CFF 0deg, #00E5FF 180deg, #7B5CFF 360deg)',
-            },
-            animation: {
-              'float': 'float 6s ease-in-out infinite',
-              'spin-slow': 'spin 8s linear infinite',
-              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
-              },
-              fadeInUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              }
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
             }
           }
         }
       }
-    </script>
-    <style>
-      body {
-        background-color: #0B0B0F;
-        color: white;
-      }
-      .glass {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      .glass-card {
-        background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-      }
-      .text-glow {
-        text-shadow: 0 0 20px rgba(123, 92, 255, 0.5);
-      }
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0B0B0F; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #333; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #7B5CFF; 
-      }
-    </style>
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0B0B0F;
+      color: white;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .glass-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .text-glow {
+      text-shadow: 0 0 20px rgba(123, 92, 255, 0.5);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0B0B0F;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7B5CFF;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -97,11 +107,12 @@
   }
 }
 </script>
-<script src="https://js.paystack.co/v2/inline.js"></script>
-<link rel="stylesheet" href="/index.css">
+  <script src="https://js.paystack.co/v2/inline.js"></script>
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>

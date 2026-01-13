@@ -13,6 +13,9 @@ export const Navbar = () => {
   const [cartCount, setCartCount] = useState(0);
   const location = useLocation();
 
+  // Prevent flash of "Guest" state
+  // if (!isLoaded) return null; // Comnting out to prevent 'site not loading' issues
+
   // Debugging
   console.log("Current User Email:", (insforgeUser as any)?.primaryEmailAddress?.emailAddress);
   console.log("Expected Admin Email:", ADMIN_EMAIL);
@@ -89,7 +92,8 @@ export const Navbar = () => {
             <SignedIn>
               <div className="flex items-center gap-4">
                 {/* Admin Panel Link - Reliably check verified email from InsForge */}
-                {(insforgeUser as any)?.emailAddresses?.some((e: any) => e.emailAddress === ADMIN_EMAIL) && (
+                {/* Admin Panel Link - Check both InsForge user and AppUser context */}
+                {((appUser?.email === ADMIN_EMAIL) || (insforgeUser as any)?.emailAddresses?.some((e: any) => e.emailAddress === ADMIN_EMAIL)) && (
                   <Link
                     to="/admin"
                     className="text-[10px] uppercase font-bold bg-red-600 px-3 py-1.5 rounded text-white hover:bg-red-700 transition-all border border-red-500/50"
@@ -152,7 +156,7 @@ export const Navbar = () => {
               </SignedOut>
               <SignedIn>
                 <Link to="/profile" onClick={() => setIsOpen(false)} className="block py-2 text-base font-medium text-gray-300">My Profile</Link>
-                {(insforgeUser as any)?.emailAddresses?.some((e: any) => e.emailAddress === ADMIN_EMAIL) && (
+                {((appUser?.email === ADMIN_EMAIL) || (insforgeUser as any)?.emailAddresses?.some((e: any) => e.emailAddress === ADMIN_EMAIL)) && (
                   <Link to="/admin" onClick={() => setIsOpen(false)} className="block py-2 text-base font-medium text-red-400">Admin Dashboard</Link>
                 )}
                 <div className="py-2 flex items-center gap-2">

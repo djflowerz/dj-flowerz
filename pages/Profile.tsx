@@ -8,7 +8,7 @@ import { Download, Package, ExternalLink, Send, Check, Key, Camera, Edit2, X, Sa
 import { useAppUser } from '../App';
 
 export const Profile = () => {
-    const { user, refreshUser } = useAppUser();
+    const { user, refreshUser, loading } = useAppUser();
     const [orders, setOrders] = useState<Order[]>([]);
     const [vipChannels, setVipChannels] = useState<TelegramChannel[]>([]);
     const [isEditing, setIsEditing] = useState(false);
@@ -20,6 +20,7 @@ export const Profile = () => {
     const orderSuccess = searchParams.get('order_success');
 
     useEffect(() => {
+        if (loading) return; // Wait for auth check
         if (!user) {
             navigate('/login');
             return;
@@ -79,7 +80,8 @@ export const Profile = () => {
         }
     };
 
-    if (!user) return <div className="pt-32 text-center text-gray-500">Loading profile...</div>;
+    if (loading) return <div className="pt-32 text-center text-gray-500">Loading your profile...</div>;
+    if (!user) return null; // Will redirect via useEffect
 
     return (
         <div className="min-h-screen pt-20">

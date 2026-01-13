@@ -1,0 +1,11 @@
+<app-main-navbar [navTag]="navTag" (navMessageEvent)="receiveNavMessage($event)"></app-main-navbar>
+<div class="container-fluid" style=" margin-top: 80px">
+  <p >Payments</p>
+  <div class="row justify-content-center justify-content-lg-between flex-lg-row-reverse" style="padding: 10px; margin-top: 0px">
+    <div class="col" style="background-color: #fff; border: 1px solid #ccc; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);padding-bottom: 4px;padding-top: 18px; border-radius: 7px; margin: 5px">
+      <table #dtPayment id="dtPayment" class="display datatable nowrap" style="width: 100%">
+      </table>
+    </div>
+</div>
+</div>
+<app-footer></app-footer>

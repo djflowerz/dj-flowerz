@@ -1,0 +1,326 @@
+<div class="container " style="padding: 20px">
+  <form #listForm="ngForm">
+    <div class="row">
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: bold; color: indianred">Tell us about your space</p>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="type" class="form-select" id="floatingSelect"
+                  aria-label="Floating label select example" #type="ngModel"
+                  [class.is-invalid]="type.invalid && type.touched" ngModel
+                  [(ngModel)]="user['type']" required >
+            <option value="House">House</option>
+            <option value="Bungalow">Bungalow</option>
+            <option value="Maisonette">Maisonette</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Bed and Breakfast">Bed & Breakfast</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000; font-family: 'Montserrat', sans-serif;">What is your space?</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="title" type="text" class="form-control" id="title"
+                 #title="ngModel"
+                 [(ngModel)]="user['title']"
+                 [class.is-invalid]="title.invalid && title.touched" ngModel required>
+          <label style="font-size: 14px; color: #000;">What is your space name?</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <mat-form-field appearance="fill" style="border: 1px solid #fff; width: 100%; padding: 0 !important; margin: 0 !important; font-family: 'Montserrat'">
+            <mat-label >What is your space location?</mat-label>
+            <input ngx-google-places-autocomplete
+                   [options]='options2' (onAddressChange)="addressChange($event)" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <!--<div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="units" class="form-select" id="units"
+                  aria-label="Floating label select example" #units="ngModel"
+                  [class.is-invalid]="units.invalid && units.touched" ngModel
+                  [(ngModel)]="user['units']" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000; font-family: 'Work Sans', sans-serif">No. of units</label>
+        </div>
+      </div>-->
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="units" type="text" class="form-control" id="units"
+                 #units="ngModel"
+                 [(ngModel)]="user['units']"
+                 [class.is-invalid]="units.invalid && units.touched" ngModel required>
+          <label style="font-size: 14px; color: #000;">Enter unit number</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="beds" class="form-select" id="beds"
+                  aria-label="Floating label select example" #beds="ngModel"
+                  [class.is-invalid]="beds.invalid && beds.touched" ngModel
+                  [(ngModel)]="user['beds']" required>
+            <option value="0">Bedsitter</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000;">Bedrooms</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="bathrooms" class="form-select" id="bathrooms"
+                  aria-label="Floating label select example" #bathrooms="ngModel"
+                  [class.is-invalid]="bathrooms.invalid && bathrooms.touched" ngModel
+                  [(ngModel)]="user['bathrooms']" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000;">Bathrooms</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="paymentdetails" class="form-select" id="paymentdetails"
+                  aria-label="Floating label select example" #paymentdetails="ngModel"
+                  [class.is-invalid]="paymentdetails.invalid && paymentdetails.touched" ngModel
+                  [(ngModel)]="user['paymentdetails']" required>
+            <option value="1,1">1 Month Deposit And 1 Month Rent</option>
+            <option value="2,1">2 Months Deposit And 1 Month Rent</option>
+            <option value="3,1">3 Months Deposit And 1 Month Rent</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000;">Payment Details</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="waterbill" type="number" class="form-control" id="waterbill"
+                 #waterbill="ngModel"
+                 [(ngModel)]="user['waterbill']"
+                 [class.is-invalid]="waterbill.invalid && waterbill.touched" ngModel required>
+          <label >Water Bill / Amount per unit</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="garbagebill" type="number" class="form-control" id="garbagebill"
+                 #garbagebill="ngModel"
+                 [(ngModel)]="user['garbagebill']"
+                 [class.is-invalid]="garbagebill.invalid && garbagebill.touched" ngModel required>
+          <label>Monthly Garbage Bill</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px">
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: bold; color: indianred">Tell guests what your place has to offer</p>
+
+      <div class="col-md-4 col-lg-4 col-xl-4" >
+        <ng-multiselect-dropdown class="containerz" name="amenities" required
+                                 style="min-height: 70px !important; "
+                                 [placeholder]="'Highlight your amenities'"
+                                 [settings]="dropdownSettingsAmenities"
+                                 [data]="dropdownListAmenities"
+                                 [(ngModel)]="selectedItemsAmenities"
+                                 (onSelect)="onItemSelectAmenities($event)"
+                                 (onSelectAll)="onSelectAllAmenities($event)">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <ng-multiselect-dropdown class="containerz" name="extras" required
+                                 [placeholder]="'House Rules'"
+                                 [settings]="dropdownSettings"
+                                 [data]="dropdownList"
+                                 [(ngModel)]="selectedItems"
+                                 (onSelect)="onItemSelect($event)"
+                                 (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="cost" type="number" class="form-control" id="cost"
+                 #cost="ngModel"
+                 [(ngModel)]="user['cost']"
+                 [class.is-invalid]="cost.invalid && cost.touched" ngModel required>
+          <label for="cost" style="font-size: 14px; color: #000;">What is the cost (Kes)?</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 0px">
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: bold; color: indianred">Lets get description about your space</p>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="stay" class="form-select" id="stay"
+                  aria-label="Floating label select example" #stay="ngModel"
+                  [class.is-invalid]="stay.invalid && stay.touched" ngModel
+                  [(ngModel)]="user['stay']" required>
+            <option value="Short Term">Short Term</option>
+            <option value="Long Term">Long Term</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000; ">Stay</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+      <textarea name="description" class="form-control" #description="ngModel"
+                [(ngModel)]="user['description']" id="description" rows="2" ngModel
+                [class.is-invalid]="description.invalid && description.touched" placeholder="Description" required></textarea>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+      <textarea name="cancellationpolicy" class="form-control" #cancellationpolicy="ngModel"
+                [(ngModel)]="user['cancellationpolicy']" id="cancellationpolicy" rows="2" ngModel
+                [class.is-invalid]="cancellationpolicy.invalid && cancellationpolicy.touched" placeholder="Cancellation Policy" required></textarea>
+      </div>
+    </div>
+    <!--<div class="row" style="margin-top: 20px">
+      <p style="font-family: 'Work Sans', sans-serif; font-size: 16px; color: black">Add photos of your space</p>
+      <div class="col">
+        <div class="input-group custom-file-button2">
+          <label class="input-group-text" for="inputGroupFile2" style="font-size: 14px !important;" >Choose at least 4 photos</label>
+          <input type="file" class="form-control" id="inputGroupFile2" accept="image/*" required #file102 (change)="fileChangeEventPropertyImages(file102.files)" multiple>
+        </div>
+      </div>
+    </div>-->
+    <div class="row" style="margin-top: 10px">
+      <div class="col">
+      <button type="button" class="btn btn-danger pull-right" [disabled]="listForm.form.invalid" (click)="list(listForm)" style="font-family: Montserrat, sans-serif; text-transform: none; border-radius: 6px">Continue</button>
+<!--      <button type="button" class="btn btn-danger pull-right" (click)="list(listForm)" style=" border-radius: 6px; font-family: Montserrat, sans-serif">Continue</button>-->
+      </div>
+    </div>
+  </form>
+
+</div>
+
+<ng-template #imagesContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload Photos</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="container">
+        <div class="row g-2">
+          <div class="col-3 ">
+            <div class="card p-2 h-100" [ngClass]="coverPhoto ? 'list-pic-col' : 'list-pic-col2'">
+              <div *ngIf="coverPhoto;then uploadCover else defaultCover"></div>
+              <ng-template #defaultCover>
+                <img class=" img-responsive d-flex flex-column center-block d-block mx-auto" src="https://kilakitu.co.ke/photo_thumbnail.png" style="width: 40px; height: 40px; margin-top: 0px" alt="Card image">
+              </ng-template>
+              <ng-template #uploadCover><img class="card-img-top h-100 object-fit-cover border rounded" [src]="coverPhotoImg" alt="Card image"></ng-template>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <input #fileInputCover type="file" (change)="onChange(fileInputCover.files, 'cover')" style="display:none"/>
+                <button [ngClass]="coverPhoto ? 'btn-outline-secondary' : 'btn-outline-danger'" class="btn " (click)="fileInputCover.click()">Cover Photo</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 ">
+            <div class="card p-2 h-100" [ngClass]="photo1 ? 'list-pic-col' : 'list-pic-col2'">
+              <div *ngIf="photo1;then uploadPhoto1 else defaultPhoto1"></div>
+              <ng-template #defaultPhoto1>
+                <img class=" img-responsive d-flex flex-column center-block d-block mx-auto" src="https://kilakitu.co.ke/photo_thumbnail.png" style="width: 40px; height: 40px; margin-top: 0px" alt="Card image">
+              </ng-template>
+              <ng-template #uploadPhoto1><img class="card-img-top h-100 object-fit-cover border rounded" [src]="photo1Img" alt="Card image"></ng-template>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <input #fileInputPhoto1 type="file" (change)="onChange(fileInputPhoto1.files, 'photo1')" style="display:none"/>
+                <button class="btn btn-outline-danger" (click)="fileInputPhoto1.click()">Photo 1</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 ">
+            <div class="card p-2 h-100" [ngClass]="photo2 ? 'list-pic-col' : 'list-pic-col2'">
+              <div *ngIf="photo2;then uploadPhoto2 else defaultPhoto2"></div>
+              <ng-template #defaultPhoto2>
+                <img class=" img-responsive d-flex flex-column center-block d-block mx-auto" src="https://kilakitu.co.ke/photo_thumbnail.png" style="width: 40px; height: 40px; margin-top: 0px" alt="Card image">
+              </ng-template>
+              <ng-template #uploadPhoto2><img class="card-img-top h-100 object-fit-cover border rounded" [src]="photo2Img" alt="Card image"></ng-template>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <input #fileInputPhoto2 type="file" (change)="onChange(fileInputPhoto2.files, 'photo2')" style="display:none"/>
+                <button class="btn btn-outline-danger" (click)="fileInputPhoto2.click()">Photo 2</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 ">
+            <div class="card p-2 h-100" [ngClass]="photo3 ? 'list-pic-col' : 'list-pic-col2'">
+              <div *ngIf="photo3;then uploadPhoto3 else defaultPhoto3"></div>
+              <ng-template #defaultPhoto3>
+                <img class=" img-responsive d-flex flex-column center-block d-block mx-auto" src="https://kilakitu.co.ke/photo_thumbnail.png" style="width: 40px; height: 40px; margin-top: 0px" alt="Card image">
+              </ng-template>
+              <ng-template #uploadPhoto3><img class="card-img-top h-100 object-fit-cover border rounded" [src]="photo3Img" alt="Card image"></ng-template>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <input #fileInputPhoto3 type="file" (change)="onChange(fileInputPhoto3.files, 'photo3')" style="display:none"/>
+                <button class="btn btn-outline-danger" (click)="fileInputPhoto3.click()">Photo 3</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 ">
+            <div class="card p-2 h-100" [ngClass]="photo4 ? 'list-pic-col' : 'list-pic-col2'">
+              <div *ngIf="photo4;then uploadPhoto4 else defaultPhoto4"></div>
+              <ng-template #defaultPhoto4>
+                <img class=" img-responsive d-flex flex-column center-block d-block mx-auto" src="https://kilakitu.co.ke/photo_thumbnail.png" style="width: 40px; height: 40px; margin-top: 0px" alt="Card image">
+              </ng-template>
+              <ng-template #uploadPhoto4><img class="card-img-top h-100 object-fit-cover border rounded" [src]="photo4Img" alt="Card image"></ng-template>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <input #fileInputPhoto4 type="file" (change)="onChange(fileInputPhoto4.files, 'photo4')" style="display:none"/>
+                <button class="btn btn-outline-danger" (click)="fileInputPhoto4.click()">Photo 4</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 ">
+            <div class="card p-2 h-100" [ngClass]="photo5 ? 'list-pic-col' : 'list-pic-col2'">
+              <div *ngIf="photo5;then uploadPhoto5 else defaultPhoto5"></div>
+              <ng-template #defaultPhoto5>
+                <img class=" img-responsive d-flex flex-column center-block d-block mx-auto" src="https://kilakitu.co.ke/photo_thumbnail.png" style="width: 40px; height: 40px; margin-top: 0px" alt="Card image">
+              </ng-template>
+              <ng-template #uploadPhoto5><img class="card-img-top h-100 object-fit-cover border rounded" [src]="photo5Img" alt="Card image"></ng-template>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <input #fileInputPhoto5 type="file" (change)="onChange(fileInputPhoto5.files, 'photo5')" style="display:none"/>
+                <button class="btn btn-outline-danger" (click)="fileInputPhoto5.click()">Photo 5</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 ">
+            <div class="card p-2 h-100" [ngClass]="photo6 ? 'list-pic-col' : 'list-pic-col2'">
+              <div *ngIf="photo6;then uploadPhoto6 else defaultPhoto6"></div>
+              <ng-template #defaultPhoto6>
+                <img class=" img-responsive d-flex flex-column center-block d-block mx-auto" src="https://kilakitu.co.ke/photo_thumbnail.png" style="width: 40px; height: 40px; margin-top: 0px" alt="Card image">
+              </ng-template>
+              <ng-template #uploadPhoto6><img class="card-img-top h-100 object-fit-cover border rounded" [src]="photo6Img" alt="Card image"></ng-template>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <input #fileInputPhoto6 type="file" (change)="onChange(fileInputPhoto6.files, 'photo6')" style="display:none"/>
+                <button class="btn btn-outline-danger" (click)="fileInputPhoto6.click()">Photo 6</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 ">
+            <div class="card p-2 h-100" [ngClass]="photo7 ? 'list-pic-col' : 'list-pic-col2'">
+              <div *ngIf="photo7;then uploadPhoto7 else defaultPhoto7"></div>
+              <ng-template #defaultPhoto7>
+                <img class=" img-responsive d-flex flex-column center-block d-block mx-auto" src="https://kilakitu.co.ke/photo_thumbnail.png" style="width: 40px; height: 40px; margin-top: 0px" alt="Card image">
+              </ng-template>
+              <ng-template #uploadPhoto7><img class="card-img-top h-100 object-fit-cover border rounded" [src]="photo7Img" alt="Card image"></ng-template>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <input #fileInputPhoto7 type="file" (change)="onChange(fileInputPhoto7.files, 'photo7')" style="display:none"/>
+                <button class="btn btn-outline-danger" (click)="fileInputPhoto7.click()">Photo 7  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="upload()">Submit</button>
+  </div>
+</ng-template>

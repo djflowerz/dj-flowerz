@@ -1,0 +1,45 @@
+<div class="container" style="padding-left: 50px; padding-right: 50px">
+  <div class="row gx-5 justify-content-center" >
+    <div class="col-lg-5">
+      <img class="center-block" style="width: 100px; height: 100px;" src="assets/img/kiakitu.svg">
+      <div class="card" style="border-radius: 5px; cursor: pointer;
+       box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); "  >
+        <div class="card-body" style="padding: 25px">
+          <h1 style="font-weight: bold">Verify Email Address</h1>
+          <h5 style="font-size: 14px">To verify your email, we've sent a One Time Password (OTP) to {{email}}</h5>
+
+          <form #verifyEmailForm="ngForm" style="margin-top: 20px">
+            <div class="mb-3">
+              <h5 class="card-title">Enter OTP</h5>
+              <input [ngStyle]="otperror === true ? {'border': '2px solid #f00'} : null" name="otp" type="text" class="form-control" id="otp"
+                     #otp="ngModel"
+                     [class.is-invalid]="otp.invalid && otp.touched" ngModel required>
+              <h6 class="error-input" [ngStyle]="otperror === true ? {'display': 'inline', 'color': '#f00'} : null">Enter a valid OTP</h6>
+            </div>
+            <div class="mb-3">
+              <h5 style="font-size: 12px">By continuing, you agree to KilaKitu <a href="javascript:void(0)">Terms of Use</a></h5>
+            </div>
+            <div class="mb-3">
+              <button (click)="verifyEmail(verifyEmailForm)" [disabled]="verifyEmailForm.form.invalid" type="button" class="btn btn-success w-100" style="font-weight: normal; font-size: 14px">Continue</button>
+            </div>
+            <div class="mb-3">
+              <h6 style="cursor: pointer; text-transform: none; color: blue; font-size: 13px; font-weight: bold" (click)="resendCode()">Resend Code</h6>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+  <div class="row gx-2 justify-content-center" >
+    <div class="col-lg-12" style="margin-top: 10px">
+      <hr>
+      <div class="d-flex justify-content-between">
+        <div>
+          <h5 style="color: #666">Copyright &#169; 2023 KilaKitu.co.ke</h5>
+        </div>
+        <div>
+          <h5><a href="javascript:void(0)" style="text-decoration: none">Privacy Policy</a></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark " id="mainNav" style="border: 1px solid #fff; background-color: #eee !important; ">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/dashboard" style="color: firebrick; margin-top: -4px">KILAKITU ADMIN</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation"
+            (click)="toggleNavbar()">
+      <span style="color: black" class="fa fa-bars" ></span></button>
+    <div *ngIf="navTag == 'host' || navTag == 'guest'" class="collapse navbar-collapse" id="navbarResponsive3"
+         [ngClass]="{ 'show': navbarOpen, 'margin-top': margin === 0 ? 'default' : 'top'}">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/dashboard']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/users']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Administrators</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/customers']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Customers</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/products']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Products</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/orders']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Orders</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/lipamdogomdogo']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Lipa Mdogo Mdogo</a>
+        </li>
+        <!--<li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/invoice']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Invoices</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/payment']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Payments</a>
+        </li>-->
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/categories']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Categories</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/blog']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Blog</a>
+        </li>
+
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="[ '/setting']"
+             routerLinkActive="active-list-item" [routerLinkActiveOptions]="{exact: true}">Settings</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li *ngIf="!isLogin" class="nav-item" style=" text-transform: none; cursor: pointer">
+          <a class="nav-link" style="text-transform: none; color: #fff; padding: 0;"><span class="fa fa-user-o" style="padding-right: 10px"></span>Sign In</a>
+        </li>
+
+        <li *ngIf="isLogin" class="rd-nav-item nav-item" style=" text-transform: none; cursor: pointer">
+          <button mat-button [matMenuTriggerFor]="menu" style="color: black; padding: 0;"><span class="fa fa-user-o" style="padding-right: 10px"></span>{{myEmail}}</button>
+          <mat-menu class="custom-menu" #menu="matMenu">
+            <button mat-menu-item routerLink="/orderlogs">Order Logs</button>
+            <button mat-menu-item (click)="logOut()">Log Out</button>
+          </mat-menu>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

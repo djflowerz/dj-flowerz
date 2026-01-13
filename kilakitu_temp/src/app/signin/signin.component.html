@@ -1,0 +1,53 @@
+<div class="container" style="padding-left: 50px; padding-right: 50px">
+  <div class="row gx-5 justify-content-center" >
+    <div class="col-lg-5">
+<!--      <img class="center-block" style="width: 100px; height: 100px;" src="https://kilakitu.co.ke/kilakitufav.png">-->
+      <div class="card" style="border-radius: 5px; cursor: pointer;
+       box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); margin-top: 150px"  >
+        <div class="card-body" style="padding: 25px">
+          <h1 style="font-weight: bold; color: firebrick">Admin Sign In</h1>
+          <form #signInForm="ngForm" style="margin-top: 20px">
+            <div class="mb-3">
+              <h5 class="card-title">Email address or phone number</h5>
+              <input [ngStyle]="emailerror === true ? {'border': '2px solid #f00'} : null" name="email" type="text" class="form-control" id="email"
+                     #email="ngModel"
+                     [class.is-invalid]="email.invalid && email.touched" ngModel required>
+              <h6 class="error-input" [ngStyle]="emailerror === true ? {'display': 'inline', 'color': '#f00'} : null">Enter a valid email address or phone number</h6>
+            </div>
+            <div class="mb-3">
+              <h5 class="card-title" >Password</h5>
+              <input [ngStyle]="passworderror === true ? {'border': '2px solid #f00'} : null" name="password" type="password" class="form-control" id="password"
+                     #password="ngModel"
+                     [class.is-invalid]="password.invalid && password.touched" ngModel required>
+              <h6 class="error-input" [ngStyle]="passworderror === true ? {'display': 'inline', 'color': '#f00'} : null">Enter password</h6>
+            </div>
+            <div class="mb-3">
+              <h5 style="font-size: 12px">By continuing, you agree to KilaKitu <a href="javascript:void(0)">Terms of Use</a></h5>
+            </div>
+            <div class="mb-3">
+              <button (click)="login(signInForm)" [disabled]="signInForm.form.invalid" type="button" class="btn btn-success w-100" style="font-weight: normal; font-size: 14px">Continue</button>
+              <img class="justify-content-center text-center" style="margin-top: 15px; text-align: center" *ngIf="loading"
+                   src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+            <div class="mb-3">
+              <h6 style="cursor: pointer; text-transform: none; color: blue; font-size: 13px; font-weight: bold"><a style="text-decoration: none" routerLink="/recoverpassword">Forgot Password?</a> </h6>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row gx-2 justify-content-center" >
+    <div class="col-lg-12" style="margin-top: 10px">
+      <hr>
+      <div class="d-flex justify-content-between">
+        <div>
+          <h5 style="color: #666">Copyright &#169; 2023 KilaKitu.co.ke</h5>
+        </div>
+        <div>
+          <h5><a href="javascript:void(0)" style="text-decoration: none">Privacy Policy</a></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

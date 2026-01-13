@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "LexendDeca";
+  src: url(../../assets/fonts/lexend/LexendDeca-VariableFont_wght.ttf) format("opentype");
+}
+
+nav {
+  padding: 10px;
+  font-family: LexendDeca, serif;
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+}
+
+::ng-deep .cdk-overlay-container .custom-menu {
+  margin-top: 1.5rem;
+}
+
+.nav-item .nav-link {
+  font-family: LexendDeca, serif;
+  font-weight: bold;
+  color: #666 !important;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.active-list-item{
+  color: #B97745 !important;
+  border-bottom: 3px solid #B97745;
+}
+
+button {
+  font-family: LexendDeca, serif;
+}

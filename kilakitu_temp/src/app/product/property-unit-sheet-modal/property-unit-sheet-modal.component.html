@@ -1,0 +1,73 @@
+<div class="container ">
+  <div class="row row-lg-2 row-25" style="margin-top: 10px; ">
+    <div class="col">
+      <button style=" margin-bottom: 10px;  " type="button" class="btn btn-primary" (click)="addPropertyUnit(addPropertyUnitContent)">Add Property Unit</button>
+    </div>
+
+    <div class="row justify-content-center justify-content-lg-between flex-lg-row-reverse" style="padding: 10px; margin-top: 0px">
+      <div class="col" style="background-color: #fff; border: 1px solid #ccc; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);padding-bottom: 4px;padding-top: 18px; border-radius: 7px; margin: 5px">
+        <table #dtPropertyUnit id="dtPropertyUnit" class="display datatable nowrap" style="width: 100%">
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #addPropertyUnitContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Property Unit</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form #addPropertyUnitForm="ngForm">
+      <div class="form-floating mb-3">
+        <input name="name" type="name" class="form-control" id="floatingInput" #name="ngModel" ngModel
+               [class.is-invalid]="name.invalid && name.touched">
+        <label for="floatingInput">Name</label>
+      </div>
+      <div class="form-floating">
+        <select name="status" class="form-select" id="floatingSelect" #status="ngModel" ngModel
+                aria-label="Floating label select example" required
+                [class.is-invalid]="status.invalid && status.touched">
+          <option value="Available">Available</option>
+          <option value="Occupied">Occupied</option>
+        </select>
+        <label for="floatingSelect">Status</label>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" [disabled]="addPropertyUnitForm.form.invalid" (click)="submitPropertyUnit(addPropertyUnitForm)">Add</button>
+  </div>
+</ng-template>
+
+<ng-template #editPropertyUnitContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Edit Property Unit</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form #editPropertyUnitForm="ngForm">
+      <div class="form-floating mb-3">
+        <input name="name" type="name" class="form-control" id="floatingInput2" #name="ngModel" ngModel disabled
+               [(ngModel)]="editPropertyUnitData['name']" [class.is-invalid]="name.invalid && name.touched">
+        <label for="floatingInput2">Name</label>
+      </div>
+      <div class="form-floating">
+        <select name="status" class="form-select" id="floatingSelect2" #status="ngModel" ngModel
+                aria-label="Floating label select example" required [(ngModel)]="editPropertyUnitData['status']"
+                [class.is-invalid]="status.invalid && status.touched">
+          <option value="Available">Available</option>
+          <option value="Occupied">Occupied</option>
+        </select>
+        <label for="floatingSelect2">Status</label>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" [disabled]="editPropertyUnitForm.form.invalid" (click)="editPropertyUnit(editPropertyUnitForm)">Edit</button>
+  </div>
+</ng-template>
+

@@ -1,0 +1,61 @@
+<app-main-navbar [navTag]="navTag" (navMessageEvent)="receiveNavMessage($event)"></app-main-navbar>
+
+<div class="container-fluid" style="margin-top: 80px">
+  <p >Settings</p>
+  <div class="row" style="margin: 10px; padding: 5px">
+    <div class="col-lg-6" style="padding: 5px">
+      <mat-card style="min-height: 265px;">
+        <h4>Configuration</h4>
+        <form #resetPasswordForm="ngForm">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Email Notifications</label>
+          </div>
+          <div class="form-check form-switch" style="margin-top: 15px">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+            <label class="form-check-label" for="flexSwitchCheckChecked">Sms Notifications</label>
+          </div>
+          <div class="form-check form-switch" style="margin-top: 15px">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+            <label class="form-check-label" for="flexSwitchCheckChecked">Message Notifications</label>
+          </div>
+          <div class="form-check form-switch" style="margin-top: 15px">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+            <label class="form-check-label" for="flexSwitchCheckChecked">In App Notifications</label>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+    <div class="col-lg-6" style="padding: 5px">
+      <mat-card style="min-height: 240px;">
+        <h4>Change Password</h4>
+        <form #resetPasswordForm="ngForm">
+          <div class="row">
+            <div class="col">
+              <input name="oldpassword" type="text" class="form-control" placeholder="Old Password"
+                     #oldpassword="ngModel" [class.is-invalid]="oldpassword.invalid && oldpassword.touched" ngModel required>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px">
+            <div class="col">
+              <input name="newpassword" type="text" class="form-control" placeholder="New Password"
+                     #newpassword="ngModel" [class.is-invalid]="newpassword.invalid && newpassword.touched" ngModel  required>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px">
+            <div class="col">
+              <input name="confirmpassword" type="text" class="form-control" placeholder="Confirm Password"
+                     #confirmpassword="ngModel" [class.is-invalid]="confirmpassword.invalid && confirmpassword.touched" ngModel required>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 20px">
+            <div class="col">
+              <button [disabled]="resetPasswordForm.form.invalid" type="button" class="btn btn-primary w-100" style="font-family: Changa">Reset Password</button>
+            </div>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,26 @@
+//.show{
+//  margin-top: 50px;
+//}
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sticky-top2 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 55px;
+    z-index: 1019;
+  }
+}
+
+nav {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: gold !important;
+}
+
+h3 {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn {
+  width: 240px !important;
+}

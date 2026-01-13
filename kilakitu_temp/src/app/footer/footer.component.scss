@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "Montserrat";
+  src: url(../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf) format("opentype");
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  margin-top: 100px;
+  width: 100%;
+}
+
+a {
+
+}
+
+p, a, h6, span, .text-center {
+  font-family: Montserrat, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+h6 {
+  font-size: 14px;
+}

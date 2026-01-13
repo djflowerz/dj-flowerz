@@ -1,0 +1,122 @@
+<app-main-navbar [navTag]="navTag" (navMessageEvent)="receiveNavMessage($event)"></app-main-navbar>
+<section class="py-2 " >
+  <div class="container-fluid px-3 my-3" >
+    <div class="row gx-3 justify-content-center" style="margin-top: 50px;">
+      <div class="col-lg-12" style="">
+        <!--  <p >Properties</p>-->
+<!--        <button style=" margin-bottom: 10px; margin-top: 20px" type="button" class="btn btn-primary" (click)="open2(content, 'xl')">Add Article</button>-->
+        <!--  <button style=" margin-bottom: 10px;  " type="button" class="btn btn-primary" (click)="createListing()">Add Property</button>-->
+        <div class="row justify-content-center justify-content-lg-between flex-lg-row-reverse" style="padding: 10px; margin-top: 0px">
+          <div class="col" style="background-color: #fff; border: 1px solid #ccc; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);padding-bottom: 4px;padding-top: 18px; border-radius: 7px; margin: 5px">
+            <table #dtCategories id="dtCategories" class="display datatable nowrap" style="width: 100%">
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-titleee">Add Article</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form #listForm="ngForm">
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input name="title" type="text" class="form-control" id="title"
+                 #title="ngModel"
+                 [class.is-invalid]="title.invalid && title.touched" ngModel required>
+          <label for="title" style="font-size: 14px;">Enter title</label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <textarea name="subtitle" class="form-control" #subtitle="ngModel"
+                    id="subtitle" rows="10" ngModel
+                    [class.is-invalid]="subtitle.invalid && subtitle.touched" placeholder="Subtitle" required></textarea>
+          <label for="subtitle" style="font-size: 14px;">Enter Subtitle</label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <textarea name="description" class="form-control" #description="ngModel"
+                    id="description" rows="10" ngModel
+                    [class.is-invalid]="description.invalid && description.touched" placeholder="Description" required></textarea>
+          <label for="description" style="font-size: 14px;">Enter description</label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input #articlePhoto type="file" (change)="onChange(articlePhoto.files, 'photo4')"
+                 />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" [disabled]="listForm.form.invalid" (click)="upload(listForm)">Continue</button>
+    <img class="justify-content-center text-center" style="margin-top: 15px; text-align: center" *ngIf="loadingCreate"
+         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+  </div>
+</ng-template>
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-titlee">Edit Category</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form #listEditForm="ngForm">
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input name="categoryedit" type="text" class="form-control" id="categoryedit"
+                 #categoryedit="ngModel"
+                 [(ngModel)]="category['name']"
+                 [class.is-invalid]="categoryedit.invalid && categoryedit.touched" ngModel required>
+          <label for="categoryedit" style="font-size: 14px; ">Enter product category</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input name="subcategoryedit" type="text" class="form-control" id="subcategoryedit"
+                 #subcategoryedit="ngModel"
+                 [(ngModel)]="productSubcategory"
+                 [class.is-invalid]="subcategoryedit.invalid && subcategoryedit.touched" ngModel required>
+          <label for="name" style="font-size: 14px; ">Enter product subcategory</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer" >
+    <button type="button" class="btn btn-danger" [disabled]="listEditForm.form.invalid" (click)="edit(listEditForm)">Continue</button>
+    <img class="justify-content-center text-center" style="margin-top: 15px; text-align: center" *ngIf="loadingEdit"
+         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+  </div>
+</ng-template>
+<ng-template #deleteCategory let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title22">{{deletecategory | titlecase}} Article</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <h3 style=" font-size: 18px">Do you want to {{deletecategory}} the article?</h3>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="deleteCategorySubmit()">{{deletecategory | titlecase}}</button>
+    <img class="justify-content-center text-center" style="margin-top: 15px; text-align: center" *ngIf="loadingDelete"
+         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+  </div>
+</ng-template>
+<app-footer></app-footer>

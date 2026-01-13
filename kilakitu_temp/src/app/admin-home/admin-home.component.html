@@ -1,0 +1,61 @@
+<app-main-navbar [navTag]="navTag" (navMessageEvent)="receiveNavMessage($event)"></app-main-navbar>
+<div class="container" >
+  <div class="row" >
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="margin-top: 80px">
+      <div class="card bg-secondary text-white mb-4">
+        <div class="card-body" style="font-weight: bold"><i style="padding: 6px" class="fa fa-bars"></i>Customers</div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+          <a class="small text-white stretched-link" href="javascript:void(0)" style="text-decoration: none; font-weight: bold; font-size: 15px; ">
+            {{propertiesCount}}
+          </a>
+          <div class="small text-white"><i class="fa fa-angle-right"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="margin-top: 80px">
+      <div class="card bg-info text-white mb-5">
+        <div class="card-body" style="font-weight: bold"><i style="padding: 6px; " class="fa fa-clone"></i>Orders</div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+          <a class="small text-white stretched-link" href="javascript:void(0)" style="text-decoration: none; font-weight: bold; font-size: 15px; ">{{bookingsCount}}</a>
+          <div class="small text-white"><i class="fa fa-angle-right"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="margin-top: 80px">
+      <div class="card bg-primary text-white mb-4">
+        <div class="card-body" style="font-weight: bold"><i style="padding: 6px" class="fa fa-credit-card"></i>Payments</div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+          <a class="small text-white stretched-link" href="javascript:void(0)" style="text-decoration: none; font-weight: bold; font-size: 15px; ">{{paymentsCount}}</a>
+          <div class="small text-white"><i class="fa fa-angle-right"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="margin-top: 80px" (click)="stockLevel()">
+      <div class="card bg-danger text-white mb-4">
+        <div class="card-body" style="font-weight: bold"><i style="padding: 6px" class="fa fa-credit-card"></i>Stock Levels Below 5 Units</div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+          <a class="small text-white stretched-link" href="javascript:void(0)" style="text-decoration: none; font-weight: bold; font-size: 15px; ">{{stockLevels}}</a>
+          <div class="small text-white"><i class="fa fa-angle-right"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row row-lg-2 row-25" style="margin-top: 0px">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style=" ">
+      <div class="card text-white mb-5" style="border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)">
+        <div id="chartContainer" style="height: 300px; margin: 15px"></div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style=" ">
+      <div class="card text-white mb-5" style="border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)">
+        <div id="chartContainer2" style="height: 300px; margin: 15px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

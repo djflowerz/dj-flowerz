@@ -1,0 +1,176 @@
+<div class="container " style="padding: 20px">
+  <form #listForm="ngForm">
+    <div class="row">
+      <p style="font-family: 'Work Sans', sans-serif; font-size: 16px; color: black">Tell us about your space</p>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="type" class="form-select" id="floatingSelect"
+                  aria-label="Floating label select example" #type="ngModel"
+                  [class.is-invalid]="type.invalid && type.touched" ngModel
+                  [(ngModel)]="property['type']" required >
+            <option value="House">House</option>
+            <option value="Bungalow">Bungalow</option>
+            <option value="Maisonette">Maisonette</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Bed and Breakfast">Bed & Breakfast</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000; font-family: 'Work Sans', sans-serif;">What is your space?</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="title" type="text" class="form-control" id="title"
+                 #title="ngModel"
+                 [(ngModel)]="property['title']"
+                 [class.is-invalid]="title.invalid && title.touched" ngModel required>
+          <label style="font-size: 14px; color: #000;">What is your space name?</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <mat-form-field appearance="fill" style="border: 1px solid #fff; width: 100%; padding: 0 !important; margin: 0 !important; font-family: 'Work Sans'">
+            <mat-label >What is your space location?</mat-label>
+            <input name="location" id="location" ngx-google-places-autocomplete [(ngModel)]="property['location']" #location="ngModel" ngModel
+                   [options]='options2' (onAddressChange)="addressChange($event)" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="units" type="text" class="form-control" id="units"
+                 #units="ngModel"
+                 [(ngModel)]="property['propertyUnit'].length"
+                 [class.is-invalid]="units.invalid && units.touched" ngModel required disabled>
+          <label for="floatingSelect" style="font-size: 14px; color: #000; font-family: 'Work Sans', sans-serif">No. of units</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="bathrooms" class="form-select" id="bathrooms"
+                  aria-label="Floating label select example" #bathrooms="ngModel"
+                  [class.is-invalid]="bathrooms.invalid && bathrooms.touched" ngModel
+                  [(ngModel)]="property['bathrooms']" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000; font-family: 'Work Sans', sans-serif">Bathrooms</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="beds" class="form-select" id="beds"
+                  aria-label="Floating label select example" #beds="ngModel"
+                  [class.is-invalid]="beds.invalid && beds.touched" ngModel
+                  [(ngModel)]="property['beds']" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000; font-family: 'Work Sans', sans-serif">Beds</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="paymentdetails" class="form-select" id="paymentdetails"
+                  aria-label="Floating label select example" #paymentdetails="ngModel"
+                  [class.is-invalid]="paymentdetails.invalid && paymentdetails.touched" ngModel
+                  [(ngModel)]="property['paymentdetails']" required>
+            <option value="1,1">1 Month Deposit And 1 Month Rent</option>
+            <option value="2,1">2 Months Deposit And 1 Month Rent</option>
+            <option value="3,1">3 Months Deposit And 1 Month Rent</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000; font-family: 'Work Sans', sans-serif">Payment Details</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="waterbill" type="number" class="form-control" id="waterbill"
+                 #waterbill="ngModel"
+                 [(ngModel)]="property['waterbill']"
+                 [class.is-invalid]="waterbill.invalid && waterbill.touched" ngModel required>
+          <label >Water Bill (Amount per unit) </label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="garbagebill" type="number" class="form-control" id="garbagebill"
+                 #garbagebill="ngModel"
+                 [(ngModel)]="property['garbagebill']"
+                 [class.is-invalid]="garbagebill.invalid && garbagebill.touched" ngModel required>
+          <label>Monthly Garbage Bill(Optional)</label>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 10px">
+      <p style="font-family: 'Work Sans', sans-serif; font-size: 16px; color: black">Tell guests what your place has to offer</p>
+
+      <div class="col-md-4 col-lg-4 col-xl-4" >
+        <ng-multiselect-dropdown class="containerz" name="amenities" required
+                                 style="min-height: 70px !important; "
+                                 [placeholder]="'Highlight your amenitiesw'"
+                                 [settings]="dropdownSettingsAmenities"
+                                 [data]="dropdownListAmenities"
+                                 [(ngModel)]="selectedItemsAmenities"
+                                 (onSelect)="onItemSelectAmenities($event)"
+                                 (onSelectAll)="onSelectAllAmenities($event)">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <ng-multiselect-dropdown class="containerz" name="extras" required
+                                 [placeholder]="'House Rules'"
+                                 [settings]="dropdownSettings"
+                                 [data]="dropdownList"
+                                 [(ngModel)]="selectedItemsExtras"
+                                 (onSelect)="onItemSelect($event)"
+                                 (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <input name="cost" type="number" class="form-control" id="cost"
+                 #cost="ngModel"
+                 [(ngModel)]="property['cost']"
+                 [class.is-invalid]="cost.invalid && cost.touched" ngModel required>
+          <label for="cost" style="font-size: 14px; color: #000;">What is the cost (Kes)?</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 0px">
+      <p style="font-family: 'Work Sans', sans-serif; font-size: 16px; color: black">Lets get description about your space</p>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="form-floating mb-3">
+          <select name="stay" class="form-select" id="stay" style="height: 20px !important;"
+                  aria-label="Floating label select example" #stay="ngModel"
+                  [class.is-invalid]="stay.invalid && stay.touched" ngModel
+                  [(ngModel)]="property['stay']" required>
+            <option value="Short Term">Short Term</option>
+            <option value="Long Term">Long Term</option>
+          </select>
+          <label for="floatingSelect" style="font-size: 14px; color: #000; font-family: 'Work Sans', sans-serif">Stay</label>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+      <textarea name="description" class="form-control" #description="ngModel"
+                [(ngModel)]="property['description']" id="description" rows="2" ngModel
+                [class.is-invalid]="description.invalid && description.touched" placeholder="Description" required></textarea>
+      </div>
+      <div class="col-md-4 col-lg-4 col-xl-4">
+      <textarea name="cancellationpolicy" class="form-control" #cancellationpolicy="ngModel"
+                [(ngModel)]="property['cancellationpolicy']" id="cancellationpolicy" rows="2" ngModel
+                [class.is-invalid]="cancellationpolicy.invalid && cancellationpolicy.touched" placeholder="Cancellation Policy" required></textarea>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+      <div class="col">
+      <button type="button" class="btn btn-danger" [disabled]="listForm.form.invalid" (click)="list(listForm)" style="font-family: 'Work Sans', sans-serif; text-transform: none; border-radius: 6px">Edit Your Space</button>
+      </div>
+    </div>
+  </form>
+
+</div>

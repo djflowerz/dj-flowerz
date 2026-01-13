@@ -1,0 +1,26 @@
+<nav class="navbar navbar-light bg-dark justify-content-between flex-nowrap flex-row sticky-top2" >
+  <div class="container">
+    <ul class="nav navbar-nav flex-row float-left" style="padding-left: 12px; width: 50%;">
+      <form class="form-inline my-2 my-lg-0" style="width: 95%">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search Location" aria-label="Search" >
+      </form>
+    </ul>
+    <ul class="nav navbar-nav flex-row float-right" style="padding-right: 5px; ">
+
+      <li style="margin-right: 10px; color: black; border: 2px solid #f00" class="nav-item">
+        <ng-multiselect-dropdown class="containerz" name="amenities" required
+                                 [placeholder]="'Category'"
+                                 [settings]="dropdownSettingsAmenities"
+                                 [data]="categories | async"
+                                 [(ngModel)]="selectedItemsAmenities"
+                                 (onSelect)="onItemSelectAmenities($event)"
+                                 (onSelectAll)="onSelectAllAmenities($event)">
+        </ng-multiselect-dropdown>
+      </li>
+      <!--<li style="margin-right: 10px; color: white; margin-bottom: 1px" class="nav-item">
+        <button class="btn btn-primary">Location <i class="fa fa-close"></i></button>
+      </li>-->
+<!--      <li style="margin-right: 10px; color: white; " class="nav-item"><button class="btn btn-primary">Category <i class="fa fa-close"></i></button></li>-->
+    </ul>
+  </div>
+</nav>

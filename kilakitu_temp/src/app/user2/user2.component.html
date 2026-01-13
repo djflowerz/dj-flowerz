@@ -1,0 +1,113 @@
+<app-main-navbar [navTag]="navTag" (navMessageEvent)="receiveNavMessage($event)"></app-main-navbar>
+<div class="container-fluid" >
+<!--  <p >Properties</p>-->
+<!--  <button style=" margin-bottom: 10px; margin-top: 80px" type="button" class="btn btn-primary" (click)="open2(content, 'md')">Add User</button>-->
+<!--  <button style=" margin-bottom: 10px;  " type="button" class="btn btn-primary" (click)="createListing()">Add Property</button>-->
+  <div class="row justify-content-center justify-content-lg-between flex-lg-row-reverse" style="padding: 10px; margin-top: 70px">
+    <div class="col" style="background-color: #fff; border: 1px solid #ccc; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);padding-bottom: 4px;padding-top: 18px; border-radius: 7px; margin: 5px">
+      <table #dtUser id="dtUser" class="display datatable nowrap" style="width: 100%">
+      </table>
+    </div>
+</div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-titlee">Add User</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form #listForm="ngForm">
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input name="name" type="text" class="form-control" id="name"
+                 #name="ngModel"
+                 [class.is-invalid]="name.invalid && name.touched" ngModel required>
+          <label for="name" style="font-size: 14px; ">Enter user full name</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input name="email" type="text" class="form-control" id="email"
+                 #email="ngModel"
+                 [class.is-invalid]="email.invalid && email.touched" ngModel required>
+          <label for="name" style="font-size: 14px; ">Enter user email</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input name="phone" type="text" class="form-control" id="phone"
+                 #phone="ngModel"
+                 [class.is-invalid]="phone.invalid && phone.touched" ngModel required>
+          <label for="name" style="font-size: 14px; ">Enter user phone (0xxxxxxxxx)</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" [disabled]="listForm.form.invalid" (click)="createUser(listForm)">Continue</button>
+    <img class="justify-content-center text-center" style="margin-top: 15px; text-align: center" *ngIf="loading"
+         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+  </div>
+</ng-template>
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-titlee">Edit User</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form #listEditForm="ngForm">
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input name="name" type="text" class="form-control" id="name" readonly
+                 #name="ngModel"
+                 [(ngModel)]="product['name']"
+                 [class.is-invalid]="name.invalid && name.touched" ngModel required>
+          <label for="name" style="font-size: 14px; ">Enter user name</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input name="email" type="text" class="form-control" id="email" readonly
+                 #email="ngModel"
+                 [(ngModel)]="product['email']"
+                 [class.is-invalid]="email.invalid && email.touched" ngModel required>
+          <label for="email" style="font-size: 14px; ">Enter user email</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="form-floating mb-3">
+          <input name="phone" type="number" class="form-control" id="phone" readonly
+                 #phone="ngModel"
+                 [(ngModel)]="product['phone']"
+                 [class.is-invalid]="phone.invalid && phone.touched" ngModel required>
+          <label for="phone" style="font-size: 14px; ">Enter user phone</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer" >
+    <button type="button" class="btn btn-danger" [disabled]="listEditForm.form.invalid" (click)="edit(listEditForm)">Continue</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteUserRef let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title22">Delete User</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <h3 style=" font-size: 18px">Are you sure you want to delete the user?</h3>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete</button>
+    <img class="justify-content-center text-center" style="margin-top: 15px; text-align: center" *ngIf="loading"
+         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+  </div>
+</ng-template>
+<app-footer></app-footer>

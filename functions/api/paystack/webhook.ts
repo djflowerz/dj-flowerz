@@ -7,10 +7,16 @@ export const onRequestPost = async ({ request, env }: any) => {
     try {
         const text = await request.text();
         const signature = request.headers.get('x-paystack-signature');
-        const secretKey = 'sk_live_ec66162f517e07fb5e2322ec5e5281e2fe3ab74b';
+        // SECURITY: Access secret from environment variables
+        const secretKey = env.PAYSTACK_SECRET_KEY;
 
         if (!signature) {
             return new Response("No signature", { status: 400 });
+        }
+
+        if (!secretKey) {
+            console.error("PAYSTACK_SECRET_KEY not found in environment variables");
+            return new Response("Server Configuration Error", { status: 500 });
         }
 
         const isValid = await verifySignature(text, signature, secretKey);
